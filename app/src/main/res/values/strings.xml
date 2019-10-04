@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TictactoeMvP</string>
+    <string name="tvWinner">Winner</string>
+    <string name="tvWinnerViewGroup">is the Winner</string>
+    <string name="mniReset">Reset</string>
+    <string name="winner">Winner</string>
+</resources>
