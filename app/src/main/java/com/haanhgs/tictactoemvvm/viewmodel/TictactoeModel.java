@@ -1,17 +1,17 @@
-package com.haanhgs.tictactoemvp.viewmodel;
+package com.haanhgs.tictactoemvvm.viewmodel;
 
-import com.haanhgs.tictactoemvp.model.Board;
-import com.haanhgs.tictactoemvp.model.Player;
+import com.haanhgs.tictactoemvvm.model.Board;
+import com.haanhgs.tictactoemvvm.model.Player;
 import androidx.databinding.ObservableArrayMap;
 import androidx.databinding.ObservableField;
 
-public class MainViewModel implements ViewModel {
+public class TictactoeModel implements ViewModel {
 
     private Board model;
     public final ObservableArrayMap<String, String> cells = new ObservableArrayMap<>();
     public final ObservableField<String> winner = new ObservableField<>();
 
-    public MainViewModel(){
+    public TictactoeModel(){
         model = new Board();
     }
 
@@ -28,9 +28,10 @@ public class MainViewModel implements ViewModel {
     @Override
     public void onDestroy() {}
 
-    public void onButtonClicked(int row, int col){
+    public void onClickedCellAt(int row, int col){
         Player player = model.mark(row, col);
         cells.put("" + row + col, player == null ? null : player.toString());
+        winner.set(model.getWinner() == null ? null : model.getWinner().toString());
     }
 
     public void onResetSelected(){

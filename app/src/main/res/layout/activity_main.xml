@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="viewModel" type="com.haanhgs.tictactoemvvm.viewmodel.TictactoeModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context="com.haanhgs.tictactoemvvm.view.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clBoard"
@@ -22,11 +32,11 @@
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="onCellClicked"
-            android:tag="00"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onClickedCellAt(0,0)}"
+            android:text='@{viewModel.cells["00"]}' />
 
         <Button
             android:id="@+id/bn02"
@@ -34,10 +44,10 @@
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="onCellClicked"
-            android:tag="01"
             app:layout_constraintStart_toEndOf="@+id/bn01"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onClickedCellAt(0,1)}"
+            android:text='@{viewModel.cells["01"]}' />
 
         <Button
             android:id="@+id/bn03"
@@ -46,11 +56,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:onClick="onCellClicked"
-            android:tag="02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bn02"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onClickedCellAt(0,2)}"
+            android:text='@{viewModel.cells["02"]}' />
 
         <Button
             android:id="@+id/bn04"
@@ -58,10 +68,10 @@
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="onCellClicked"
-            android:tag="10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bn01" />
+            app:layout_constraintTop_toBottomOf="@+id/bn01"
+            android:onClick="@{() -> viewModel.onClickedCellAt(1,0)}"
+            android:text='@{viewModel.cells["10"]}' />
 
 
         <Button
@@ -70,10 +80,10 @@
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="onCellClicked"
-            android:tag="11"
             app:layout_constraintStart_toEndOf="@+id/bn04"
-            app:layout_constraintTop_toBottomOf="@+id/bn02" />
+            app:layout_constraintTop_toBottomOf="@+id/bn02"
+            android:onClick="@{() -> viewModel.onClickedCellAt(1,1)}"
+            android:text='@{viewModel.cells["11"]}' />
 
         <Button
             android:id="@+id/bn06"
@@ -82,11 +92,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:onClick="onCellClicked"
-            android:tag="12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bn05"
-            app:layout_constraintTop_toBottomOf="@+id/bn03" />
+            app:layout_constraintTop_toBottomOf="@+id/bn03"
+            android:onClick="@{() -> viewModel.onClickedCellAt(1,2)}"
+            android:text='@{viewModel.cells["12"]}' />
 
 
         <Button
@@ -95,10 +105,10 @@
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="onCellClicked"
-            android:tag="20"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bn04" />
+            app:layout_constraintTop_toBottomOf="@+id/bn04"
+            android:onClick="@{() -> viewModel.onClickedCellAt(2,0)}"
+            android:text='@{viewModel.cells["20"]}' />
 
 
         <Button
@@ -107,10 +117,10 @@
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="onCellClicked"
-            android:tag="21"
             app:layout_constraintStart_toEndOf="@+id/bn07"
-            app:layout_constraintTop_toBottomOf="@+id/bn05" />
+            app:layout_constraintTop_toBottomOf="@+id/bn05"
+            android:onClick="@{() -> viewModel.onClickedCellAt(2,1)}"
+            android:text='@{viewModel.cells["21"]}' />
 
         <Button
             android:id="@+id/bn09"
@@ -120,12 +130,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:onClick="onCellClicked"
-            android:tag="22"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bn08"
-            app:layout_constraintTop_toBottomOf="@+id/bn06" />
+            app:layout_constraintTop_toBottomOf="@+id/bn06"
+            android:onClick="@{() -> viewModel.onClickedCellAt(2,2)}"
+            android:text='@{viewModel.cells["22"]}' />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -143,13 +153,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/tvWinner"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvViewGroup"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{viewModel.winner}"
+            tools:text="X" />
 
         <TextView
             android:id="@+id/tvViewGroup"
@@ -168,3 +179,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

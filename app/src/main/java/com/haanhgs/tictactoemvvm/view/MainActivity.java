@@ -1,24 +1,22 @@
-package com.haanhgs.tictactoemvp.view;
+package com.haanhgs.tictactoemvvm.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.haanhgs.tictactoemvp.R;
-import com.haanhgs.tictactoemvp.databinding.TictactoeBinding;
-import com.haanhgs.tictactoemvp.viewmodel.MainViewModel;
+import com.haanhgs.tictactoemvvm.R;
+import com.haanhgs.tictactoemvvm.databinding.ActivityMainBinding;
+import com.haanhgs.tictactoemvvm.viewmodel.TictactoeModel;
 
 public class MainActivity extends AppCompatActivity{
 
-    private MainViewModel viewModel = new MainViewModel();
+    private TictactoeModel viewModel = new TictactoeModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        TictactoeBinding binding = DataBindingUtil.setContentView(this, R.layout.tictactoe);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(viewModel);
         viewModel.onCreate();
     }

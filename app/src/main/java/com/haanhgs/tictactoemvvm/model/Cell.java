@@ -1,4 +1,4 @@
-package com.haanhgs.tictactoemvp.model;
+package com.haanhgs.tictactoemvvm.model;
 
 public class Cell {
 

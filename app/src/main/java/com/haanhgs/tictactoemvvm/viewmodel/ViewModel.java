@@ -1,4 +1,4 @@
-package com.haanhgs.tictactoemvp.viewmodel;
+package com.haanhgs.tictactoemvvm.viewmodel;
 
 public interface ViewModel {
     void onCreate();

@@ -1,10 +1,10 @@
-package com.haanhgs.tictactoemvp.model;
+package com.haanhgs.tictactoemvvm.model;
 
-import static com.haanhgs.tictactoemvp.model.GameState.Draw;
-import static com.haanhgs.tictactoemvp.model.GameState.Finished;
-import static com.haanhgs.tictactoemvp.model.GameState.Inprogress;
-import static com.haanhgs.tictactoemvp.model.Player.O;
-import static com.haanhgs.tictactoemvp.model.Player.X;
+import static com.haanhgs.tictactoemvvm.model.GameState.Draw;
+import static com.haanhgs.tictactoemvvm.model.GameState.Finished;
+import static com.haanhgs.tictactoemvvm.model.GameState.Inprogress;
+import static com.haanhgs.tictactoemvvm.model.Player.O;
+import static com.haanhgs.tictactoemvvm.model.Player.X;
 
 public class Board {
 
