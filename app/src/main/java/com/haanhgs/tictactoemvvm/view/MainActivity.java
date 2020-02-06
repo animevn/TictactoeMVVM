@@ -15,14 +15,14 @@ public class MainActivity extends AppCompatActivity{
 
     private GameModel model;
 
-    private void hideActionBarInLandscape(){
-        if (getSupportActionBar() != null){
-            int rotation = getWindowManager().getDefaultDisplay().getRotation();
-            if (rotation == Surface.ROTATION_270 || rotation == Surface.ROTATION_90){
-                getSupportActionBar().hide();
-            }
-        }
-    }
+//    private void hideActionBarInLandscape(){
+//        if (getSupportActionBar() != null){
+//            int rotation = getWindowManager().getDefaultDisplay().getRotation();
+//            if (rotation == Surface.ROTATION_270 || rotation == Surface.ROTATION_90){
+//                getSupportActionBar().hide();
+//            }
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity{
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(model);
         model.onCreate();
-        hideActionBarInLandscape();
+//        hideActionBarInLandscape();
     }
 
     @Override
