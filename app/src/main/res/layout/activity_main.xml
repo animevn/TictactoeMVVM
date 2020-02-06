@@ -172,57 +172,62 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="259dp"
-            android:layout_marginTop="32dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/clBoard"
             app:layout_constraintStart_toStartOf="@+id/clBoard"
-            app:layout_constraintTop_toBottomOf="@+id/clBoard">
+            app:layout_constraintTop_toBottomOf="@id/clBoard">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/bnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/winner"
                 android:scaleX="-1"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+                android:onClick="@{()->viewModel.moveBack()}"
+                app:layout_constraintEnd_toStartOf="@+id/bnNext"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintStart_toEndOf="@+id/bnFirst"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/bnLast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/winner"
+                android:onClick="@{()->viewModel.moveLast()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/last" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/bnNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/winner"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                app:layout_constraintEnd_toStartOf="@+id/bnLast"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                app:layout_constraintStart_toEndOf="@+id/bnBack"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/next" />
+                app:srcCompat="@drawable/next"
+                android:onClick="@{()->viewModel.moveNext()}"
+                />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/bnFirst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/winner"
+                android:onClick="@{()->viewModel.moveFirst()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/first" />
