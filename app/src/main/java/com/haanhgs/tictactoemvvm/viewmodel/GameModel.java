@@ -1,30 +1,42 @@
 package com.haanhgs.tictactoemvvm.viewmodel;
 
+import android.app.Application;
+import android.content.Context;
 
 import com.haanhgs.tictactoemvvm.model.Board;
+import com.haanhgs.tictactoemvvm.model.Game;
 import com.haanhgs.tictactoemvvm.model.Move;
 import com.haanhgs.tictactoemvvm.model.Player;
-import com.haanhgs.tictactoemvvm.model.State;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayMap;
 import androidx.databinding.ObservableField;
-
+import androidx.lifecycle.AndroidViewModel;
 import static com.haanhgs.tictactoemvvm.model.State.Draw;
 import static com.haanhgs.tictactoemvvm.model.State.HasResult;
 import static com.haanhgs.tictactoemvvm.model.State.InProgress;
 
-public class GameModel{
+public class GameModel extends AndroidViewModel {
 
     private final Board board;
     public final ObservableArrayMap<String, String> buttons = new ObservableArrayMap<>();
     public final ObservableField<String> text = new ObservableField<>();
+    private final Context context;
 
     private void restart(){
         String string = board.getCurrentPlayer().toString() + " to play";
         text.set(string);
     }
 
-    public GameModel() {
+    public GameModel(@NonNull Application application) {
+        super(application);
+        context = application.getApplicationContext();
         board = new Board();
         restart();
     }
@@ -120,6 +132,52 @@ public class GameModel{
         }
     }
 
+    public void saveGame(){
+        try{
+            FileOutputStream out = context.openFileOutput("save", Context.MODE_PRIVATE);
+            ObjectOutputStream outputStream = new ObjectOutputStream(out);
+            outputStream.writeObject(board.getGame());
+            outputStream.flush();
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    public void loadGame(){
+        File file = new File(context.getFilesDir(), "save");
+        if (file.exists()){
+            try{
+                FileInputStream in = context.openFileInput("save");
+                ObjectInputStream inputStream = new ObjectInputStream(in);
+                Object object = inputStream.readObject();
+                board.setGame((Game)object);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void moveToCurrentMove(){
+        int currentMove = board.getGame().getCurrentMove();
+        for (int i = 0; i < currentMove; i++){
+            Move move = board.getGame().getMoves().get(i);
+            buttons.put("" + move.getRow() + move.getColumn(), move.getPlayer().toString());
+            board.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
+            board.flipSide();
+            board.setState(move.getState());
+            showTextAfterEachMove(move);
+        }
+    }
+
+    public void onCreate(){
+        buttons.clear();
+        loadGame();
+        moveToCurrentMove();
+    }
+
+    public void onDestroy(){
+        saveGame();
+    }
 
 }

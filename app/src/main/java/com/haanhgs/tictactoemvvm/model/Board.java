@@ -9,7 +9,7 @@ import static com.haanhgs.tictactoemvvm.model.State.InProgress;
 public class Board {
 
     private Game game;
-    private Cell[][] cells = new Cell[3][3];
+    private final Cell[][] cells = new Cell[3][3];
     private State state;
     private Player winner;
     private Player currentPlayer;
