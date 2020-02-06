@@ -8,7 +8,7 @@ import static com.haanhgs.tictactoemvvm.model.Player.X;
 
 public class Board {
 
-    private Cell[][]cells = new Cell[3][3];
+    private final Cell[][]cells = new Cell[3][3];
     private Player winner;
     private GameState state;
     private Player currentTurn;

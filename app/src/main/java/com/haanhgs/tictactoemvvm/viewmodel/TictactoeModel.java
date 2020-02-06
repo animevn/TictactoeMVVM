@@ -9,7 +9,7 @@ import static com.haanhgs.tictactoemvvm.model.GameState.Finished;
 
 public class TictactoeModel implements ViewModel {
 
-    private Board model;
+    private final Board model;
     public final ObservableArrayMap<String, String> cells = new ObservableArrayMap<>();
     public final ObservableField<String> text = new ObservableField<>();
 

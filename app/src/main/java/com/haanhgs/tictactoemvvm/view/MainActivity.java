@@ -11,7 +11,7 @@ import com.haanhgs.tictactoemvvm.viewmodel.TictactoeModel;
 
 public class MainActivity extends AppCompatActivity{
 
-    private TictactoeModel viewModel = new TictactoeModel();
+    private final TictactoeModel viewModel = new TictactoeModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

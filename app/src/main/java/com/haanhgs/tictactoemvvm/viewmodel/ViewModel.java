@@ -1,5 +1,6 @@
 package com.haanhgs.tictactoemvvm.viewmodel;
 
+@SuppressWarnings("EmptyMethod")
 public interface ViewModel {
     void onCreate();
     void onPause();
