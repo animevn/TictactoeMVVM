@@ -6,7 +6,7 @@ import static com.haanhgs.tictactoemvvm.model.State.Draw;
 import static com.haanhgs.tictactoemvvm.model.State.HasResult;
 import static com.haanhgs.tictactoemvvm.model.State.InProgress;
 
-public class Board {
+public class Repo {
 
     private Game game;
     private final Cell[][] cells = new Cell[3][3];
@@ -30,7 +30,7 @@ public class Board {
         state = InProgress;
     }
 
-    public Board() {
+    public Repo() {
         restart();
     }
 

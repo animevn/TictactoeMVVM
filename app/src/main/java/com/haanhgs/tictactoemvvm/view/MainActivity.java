@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
+import android.view.WindowManager;
+
 import com.haanhgs.tictactoemvvm.R;
 import com.haanhgs.tictactoemvvm.databinding.ActivityMainBinding;
 import com.haanhgs.tictactoemvvm.viewmodel.GameModel;
@@ -15,14 +17,16 @@ public class MainActivity extends AppCompatActivity{
 
     private GameModel model;
 
-//    private void hideActionBarInLandscape(){
-//        if (getSupportActionBar() != null){
-//            int rotation = getWindowManager().getDefaultDisplay().getRotation();
-//            if (rotation == Surface.ROTATION_270 || rotation == Surface.ROTATION_90){
-//                getSupportActionBar().hide();
-//            }
-//        }
-//    }
+    private void hideActionBarInLandscape(){
+        if (getSupportActionBar() != null){
+            int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            if (rotation == Surface.ROTATION_270 || rotation == Surface.ROTATION_90){
+                getSupportActionBar().hide();
+            }
+        }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(model);
         model.onCreate();
-//        hideActionBarInLandscape();
+        hideActionBarInLandscape();
     }
 
     @Override

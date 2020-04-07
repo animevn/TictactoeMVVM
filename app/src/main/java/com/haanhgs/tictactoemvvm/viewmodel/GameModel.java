@@ -2,18 +2,15 @@ package com.haanhgs.tictactoemvvm.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
-
-import com.haanhgs.tictactoemvvm.model.Board;
+import com.haanhgs.tictactoemvvm.model.Repo;
 import com.haanhgs.tictactoemvvm.model.Game;
 import com.haanhgs.tictactoemvvm.model.Move;
 import com.haanhgs.tictactoemvvm.model.Player;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayMap;
 import androidx.databinding.ObservableField;
@@ -24,37 +21,37 @@ import static com.haanhgs.tictactoemvvm.model.State.InProgress;
 
 public class GameModel extends AndroidViewModel {
 
-    private final Board board;
+    private final Repo repo;
     public final ObservableArrayMap<String, String> buttons = new ObservableArrayMap<>();
     public final ObservableField<String> text = new ObservableField<>();
     private final Context context;
 
     private void restart(){
-        String string = board.getCurrentPlayer().toString() + " to play";
+        String string = repo.getCurrentPlayer().toString() + " to play";
         text.set(string);
     }
 
     public GameModel(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
-        board = new Board();
+        repo = new Repo();
         restart();
     }
 
     public void onButtonNewGamePressed(){
-        board.restart();
+        repo.restart();
         buttons.clear();
         restart();
     }
 
     private void showTextAfterEachMove(){
-        if (board.getState() == HasResult){
-            String string = board.getWinner() == null ? "" : board.getWinner().toString();
+        if (repo.getState() == HasResult){
+            String string = repo.getWinner() == null ? "" : repo.getWinner().toString();
             text.set(string + " is winner");
-        }else if (board.getState() == Draw){
+        }else if (repo.getState() == Draw){
             text.set("Draw");
         } else {
-            String string =  board.getCurrentPlayer().toString() + " to play";
+            String string =  repo.getCurrentPlayer().toString() + " to play";
             text.set(string);
         }
     }
@@ -62,73 +59,73 @@ public class GameModel extends AndroidViewModel {
     private void showTextAfterEachMove(Move move){
         if (move.getState() == HasResult){
             text.set(move.getPlayer().toString() + " is winner");
-        }else if (board.getState() == Draw){
+        }else if (repo.getState() == Draw){
             text.set("Draw");
         } else {
-            String string =  board.getCurrentPlayer().toString() + " to play";
+            String string =  repo.getCurrentPlayer().toString() + " to play";
             text.set(string);
         }
     }
 
 
     public void onClickedCellAt(int row, int col){
-        if (board.getState() == InProgress){
-            Player player = board.makeMove(row, col);
+        if (repo.getState() == InProgress){
+            Player player = repo.makeMove(row, col);
             buttons.put("" + row + col, player == null ? null : player.toString());
             showTextAfterEachMove();
         }
     }
 
     public void moveFirst(){
-        int currentMove = board.getGame().getCurrentMove();
+        int currentMove = repo.getGame().getCurrentMove();
         if (currentMove > 0){
-            board.getGame().setCurrentMove(0);
-            board.setCurrentPlayer(board.getGame().getMoves().get(0).getPlayer());
-            board.setState(board.getGame().getMoves().get(0).getState());
+            repo.getGame().setCurrentMove(0);
+            repo.setCurrentPlayer(repo.getGame().getMoves().get(0).getPlayer());
+            repo.setState(repo.getGame().getMoves().get(0).getState());
             buttons.clear();
-            showTextAfterEachMove(board.getGame().getMoves().get(0));
+            showTextAfterEachMove(repo.getGame().getMoves().get(0));
         }
     }
 
     public void moveNext(){
-        int currentMove = board.getGame().getCurrentMove();
-        if (currentMove < board.getGame().getMoves().size()){
-            Move move = board.getGame().getMoves().get(currentMove);
+        int currentMove = repo.getGame().getCurrentMove();
+        if (currentMove < repo.getGame().getMoves().size()){
+            Move move = repo.getGame().getMoves().get(currentMove);
             buttons.put("" + move.getRow() + move.getColumn(), move.getPlayer().toString());
-            board.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
-            board.getGame().setCurrentMove(++currentMove);
-            board.setState(move.getState());
-            board.flipSide();
+            repo.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
+            repo.getGame().setCurrentMove(++currentMove);
+            repo.setState(move.getState());
+            repo.flipSide();
             showTextAfterEachMove(move);
         }
     }
 
     public void moveBack(){
-        int currentMove = board.getGame().getCurrentMove();
+        int currentMove = repo.getGame().getCurrentMove();
         if (currentMove > 0){
-            Move move = board.getGame().getMoves().get(currentMove - 1);
+            Move move = repo.getGame().getMoves().get(currentMove - 1);
             buttons.remove("" + move.getRow() + move.getColumn());
-            board.clearOneCell(move.getRow(), move.getColumn());
-            board.getGame().setCurrentMove(currentMove - 1);
-            board.setState(move.getState());
-            board.flipSide();
+            repo.clearOneCell(move.getRow(), move.getColumn());
+            repo.getGame().setCurrentMove(currentMove - 1);
+            repo.setState(move.getState());
+            repo.flipSide();
             showTextAfterEachMove(move);
         }
     }
 
     public void moveLast(){
-        int currentMove = board.getGame().getCurrentMove();
-        int gameSize = board.getGame().getMoves().size();
+        int currentMove = repo.getGame().getCurrentMove();
+        int gameSize = repo.getGame().getMoves().size();
         if (currentMove < gameSize){
             for (int i = currentMove; i < gameSize; i++){
-                Move move = board.getGame().getMoves().get(i);
+                Move move = repo.getGame().getMoves().get(i);
                 buttons.put("" + move.getRow() + move.getColumn(), move.getPlayer().toString());
-                board.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
-                board.flipSide();
-                board.setState(move.getState());
+                repo.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
+                repo.flipSide();
+                repo.setState(move.getState());
                 showTextAfterEachMove(move);
             }
-            board.getGame().setCurrentMove(gameSize);
+            repo.getGame().setCurrentMove(gameSize);
         }
     }
 
@@ -136,7 +133,7 @@ public class GameModel extends AndroidViewModel {
         try{
             FileOutputStream out = context.openFileOutput("save", Context.MODE_PRIVATE);
             ObjectOutputStream outputStream = new ObjectOutputStream(out);
-            outputStream.writeObject(board.getGame());
+            outputStream.writeObject(repo.getGame());
             outputStream.flush();
             outputStream.close();
         }catch (Exception e){
@@ -151,7 +148,7 @@ public class GameModel extends AndroidViewModel {
                 FileInputStream in = context.openFileInput("save");
                 ObjectInputStream inputStream = new ObjectInputStream(in);
                 Object object = inputStream.readObject();
-                board.setGame((Game)object);
+                repo.setGame((Game)object);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -159,13 +156,13 @@ public class GameModel extends AndroidViewModel {
     }
 
     private void moveToCurrentMove(){
-        int currentMove = board.getGame().getCurrentMove();
+        int currentMove = repo.getGame().getCurrentMove();
         for (int i = 0; i < currentMove; i++){
-            Move move = board.getGame().getMoves().get(i);
+            Move move = repo.getGame().getMoves().get(i);
             buttons.put("" + move.getRow() + move.getColumn(), move.getPlayer().toString());
-            board.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
-            board.flipSide();
-            board.setState(move.getState());
+            repo.fillOneCell(move.getPlayer(), move.getRow(), move.getColumn());
+            repo.flipSide();
+            repo.setState(move.getState());
             showTextAfterEachMove(move);
         }
     }
